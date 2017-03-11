@@ -44,7 +44,7 @@
 #define PI 3.1415926535897932384626433832795028841971693993751058209
 
 float impulse_error(int N, int sign, float *data) {
-#ifdef __ANDROID__
+#if defined(__ANDROID__) || defined(HISI)
 	double delta_sum = 0.0f;
 	double sum = 0.0f;
 #else
@@ -54,7 +54,7 @@ float impulse_error(int N, int sign, float *data) {
 
 	int i;
 	for(i=0;i<N;i++) {
-#ifdef __ANDROID__
+#if defined(__ANDROID__) || defined(HISI)
 		double re, im;
 		if(sign < 0) {
 			re = cos(2 * PI * (double)i / (double)N); 
@@ -81,7 +81,7 @@ float impulse_error(int N, int sign, float *data) {
 		delta_sum += re * re + im * im;
 
 	}
-#ifdef __ANDROID__
+#if defined(__ANDROID__) || defined(HISI)
 	return sqrt(delta_sum) / sqrt(sum);
 #else
 	return sqrtl(delta_sum) / sqrtl(sum);
